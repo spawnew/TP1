@@ -5,6 +5,36 @@
  * @returns {number[]} un nuevo array de números ordenados
  */
 function combinarDosArrays(arrA, arrB) {
+  const resultado = [];
+  let i = 0;
+  let j = 0;
+
+  while (i < arrA.length && j < arrB.length) {
+    if (arrA[i] < arrB[j]) {
+      resultado.push(arrA[i]);
+      i++;
+    } else if (arrB[j] < arrA[i]) {
+      resultado.push(arrB[j]);
+      j++;
+    } else {
+      // son iguales: lo agrego una sola vez y avanzo los dos punteros
+      resultado.push(arrA[i]);
+      i++;
+      j++;
+    }
+  }
+
+  while (i < arrA.length) {
+    resultado.push(arrA[i]);
+    i++;
+  }
+
+  while (j < arrB.length) {
+    resultado.push(arrB[j]);
+    j++;
+  }
+
+  return resultado;
 }
 
 /**
@@ -13,6 +43,14 @@ function combinarDosArrays(arrA, arrB) {
  * @returns {nuber[]} el nuevo array de números ordenados
  */
 function combinarNArrays(arrs) {
+  if (arrs.length === 0) {
+    return [];
+  }
+
+  return arrs.reduce((combinadoHastaAhora, arr) =>
+    combinarDosArrays(combinadoHastaAhora, arr),
+  );
 }
 
 // exportar ambas funciones
+export { combinarDosArrays, combinarNArrays };
